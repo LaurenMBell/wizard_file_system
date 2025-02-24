@@ -58,13 +58,6 @@ spell* create_spells(int size) {
  * 		the next spell in a spellbook.
  * Returns: The created spell structure containing the information of the
  * 		next spell in the input file
- *
- * Hint: “std::ifstream& file” is a reference to a filestream object. You will
- * need to create one, open it up to read from the spellbooks text file, read
- * the information up to (but not including) the first spell, and then pass it
- * into this function to start reading spell data. Remember that information in
- * an input file must generally be read by your program in the order that it’s
- * presented in the file.
  */
 spell read_spell_data(std::ifstream& file) {
 	spell s;
@@ -100,10 +93,6 @@ spellbook* create_spellbooks(int size) {
  * 		the next spellbook.
  * Returns: The created spellbook structure containing the information of the
  * 		next spellbook in the file
- *
- * Hint: This function will need to call the read_spell_data() function several
- * times in order to read all of the data associated with all of the spells in
- * the given spellbook.
  */
 spellbook read_spellbook_data(std::ifstream& file) {
 	spellbook sb;
@@ -133,14 +122,6 @@ spellbook read_spellbook_data(std::ifstream& file) {
  * 		pointer parameter should be set to nullptr. Since this parameter is
  * 		passed by reference, the corresponding argument will be set to nullptr
  * 		as well.
- *
- * Hint: A dynamic array of spells is normally represented with a pointer of
- * type spell* pointing to the array’s base address, but here it’s spell*&.
- * That is, it’s a reference to a spell pointer. This is because the function
- * needs to be able to delete the array that the pointer points to AND modify
- * the pointer itself to be nullptr. In order to be able to modify the pointer
- * itself (which is an argument), the pointer needs to be passed by reference
- * (or passed by pointer---here we use a reference for simplicity).
  */
 void delete_spells(spell*& spells) {
 	delete[] spells;
@@ -160,11 +141,6 @@ void delete_spells(spell*& spells) {
  * 		3. spellbooks pointer parameter should be set to nullptr. Since this
  * 		parameter is passed by reference, the corresponding argument will be set
  * 		to nullptr as well.
- *
- * Hint: This function should call the delete_spells() function several
- * times---once for each spellbook’s array of spells---and then proceed to
- * delete the array of spellbooks itself. spellbooks is passed by reference for
- * the same reason as in the delete_spells() function.
  */
 void delete_spellbooks(spellbook*& spellbooks, int size) {
 	for (int i = 0; i < size; i++) {
@@ -279,12 +255,6 @@ void spellbook_to_file(std::ofstream &outfile, const spellbook &sb, bool is_stud
 		outfile << sb.spells[i].name << " " << sb.spells[i].success_rate << " " << sb.spells[i].effect << std::endl;
 	}
 }
-
-/* for the poor TA who ends up having to grade this, could I have could I have combined the previous two functions 
-and just treated the locaion as another argument? like, have put 'location' as a parameter and the input options are 
-'std::cout' or 'std::ofstream &outfile"? Having two seperate functions felt like an okay way to implement it, especially
-since I'm not sure how it would work with different data types, but lmk if that is a possible strat for next time. */
-
 
 /*
 Function: input_files
